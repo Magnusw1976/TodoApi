@@ -10,7 +10,7 @@ import { TodoListComponent } from '../components/todo-list.component';
   template: `
     <app-page title="Att göra sidan">
       <div>
-      <app-todo-list [todoItems]="activeTodos()" listTitle="Aktiva todo's" />
+      <app-todo-list [showCreateForm]="true" [todoItems]="activeTodos()" listTitle="Aktiva todo's" />
       <div style="margin: 20px 0;">
         <button (click)="showCompletedList.set(!showCompletedList())">{{showCompletedList() ? 'Dölj slutförda' : 'Visa slutförda'}} ({{completedTodos().length}})</button>
       </div>

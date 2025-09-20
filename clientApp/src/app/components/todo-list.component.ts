@@ -11,10 +11,12 @@ import { TodoComponent } from './todo.component';
   template: `
     
     <form [formGroup]="form" (ngSubmit)="AddNewTodo(); form.reset()">
+      @if(showCreateForm()){
       <div class="form-row">
         <input formControlName="name" placeholder="Todo name" />
         <button type="submit" [disabled]="form.invalid">Add Todo</button>
       </div>
+      }
       <h2>{{listTitle()}} ({{todos().length}})</h2>      
       @if(this.todos().length === 0){
         <div>Inget att göra för tillfället...</div>
@@ -38,6 +40,8 @@ export class TodoListComponent {
 
   todoItems = input.required<TodoItemDTO[]>();
   listTitle = input.required<string>();
+  showCreateForm = input<boolean>(false);
+
   form = this.fb.group({
     id: [0],
     name: ['', [Validators.required]],

@@ -23,6 +23,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+if (!app.Environment.IsDevelopment())
+{
+    app.UseStaticFiles();
+    app.MapFallbackToFile("index.html"); // låt Angular ta över routing i prod
+}
+
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

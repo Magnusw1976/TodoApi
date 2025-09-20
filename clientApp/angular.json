@@ -51,6 +51,7 @@
             "polyfills": [
               "zone.js"
             ],
+            "outputPath": "../wwwroot",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
