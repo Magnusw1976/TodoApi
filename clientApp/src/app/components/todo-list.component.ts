@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { TodosService } from '../services/todos.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -15,9 +15,9 @@ import { TodoComponent } from './todo.component';
         <input formControlName="name" placeholder="Todo name" />
         <button type="submit" [disabled]="form.invalid">Add Todo</button>
       </div>
-      <h2>Dina Todos ({{todos().length}})</h2>      
+      <h2>{{listTitle()}} ({{todos().length}})</h2>      
       @if(this.todos().length === 0){
-        <div>Inga todos ännu</div>
+        <div>Inget att göra för tillfället...</div>
       } 
       @else 
       {
@@ -36,18 +36,20 @@ export class TodoListComponent {
   todoService = inject(TodosService);
   fb = inject(FormBuilder);
 
+  todoItems = input.required<TodoItemDTO[]>();
+  listTitle = input.required<string>();
   form = this.fb.group({
     id: [0],
     name: ['', [Validators.required]],
     isComplete: [false]
   });
   todos = computed(() => {
-    const list =this.todoService.todos.value() ?? [];
+    const list = this.todoItems() ?? [];
     return list.sort((a, b) => 
       a.id === this.todoService.selectedTodoId() && b.id !== this.todoService.selectedTodoId() ? -1 
       : a.id !== this.todoService.selectedTodoId() && b.id === this.todoService.selectedTodoId() ? 1 
-      : !a.isComplete && b.isComplete ? -1
       : a.isComplete && !b.isComplete ? 1
+      : !a.isComplete && b.isComplete ? -1      
       : 0
       || 
       (b.id ?? 0) - (a.id ??

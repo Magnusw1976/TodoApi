@@ -10,7 +10,7 @@ import { DeleteButtonComponent } from './ui/buttons/delete-button.component';
   imports: [ReactiveFormsModule, CommonModule, DeleteButtonComponent],
   template: `
     <li [ngClass]="{'todo': true,
-      'todo-active': isNewestTodo(),
+      'todo-active': isNewestTodo() && !todo().isComplete,
       'todo-completed': todo().isComplete}">
       <div>{{ todo().name }}</div>  
       <input type="checkbox" [formControl]="this.formGroup.controls.isComplete" (change)="saveTodo();"/>

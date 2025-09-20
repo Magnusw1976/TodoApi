@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, inject, input, signal } from '@angular/core';
 import { PageHeaderComponent } from '../components/page-header.component';
 import { PageComponent } from "../components/ui/page.component";
 import { TodosService } from '../services/todos.service';
@@ -9,13 +9,28 @@ import { TodoListComponent } from '../components/todo-list.component';
   imports: [PageComponent, TodoListComponent],
   template: `
     <app-page title="Att göra sidan">
-      <app-todo-list/>
+      <div>
+      <app-todo-list [todoItems]="activeTodos()" listTitle="Aktiva todo's" />
+      <div style="margin: 20px 0;">
+        <button (click)="showCompletedList.set(!showCompletedList())">{{showCompletedList() ? 'Dölj slutförda' : 'Visa slutförda'}} ({{completedTodos().length}})</button>
+      </div>
+      @if(showCompletedList()){
+        <app-todo-list [todoItems]="completedTodos()" listTitle="Slutförda todo's" />
+      }
+      </div>
     </app-page>
   `,
   styles: ``
 })
 export class TodosPageComponent {
   todosService = inject(TodosService);
+  showCompletedList = signal<boolean>(false);
 
-  numTodos = computed(() => this.todosService.todos.value()?.length ?? 0);
+  activeTodos = computed(() => {
+    return (this.todosService.todos.value() ?? []).filter(t => !t.isComplete);
+  });
+  
+  completedTodos = computed(() => {
+    return (this.todosService.todos.value() ?? []).filter(t => t.isComplete) ?? [];
+  });
 }
