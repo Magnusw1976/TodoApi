@@ -8,13 +8,19 @@
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss",
-          "skipTests": true
+          "skipTests": true,
+          "inlineStyle": true,
+          "inlineTemplate": true,
+          "flat": true,
+          "type": "component"
         },
         "@schematics/angular:class": {
           "skipTests": true
         },
         "@schematics/angular:directive": {
-          "skipTests": true
+          "skipTests": true,
+          "flat": true,
+          "type": "directive"
         },
         "@schematics/angular:guard": {
           "skipTests": true
@@ -29,7 +35,9 @@
           "skipTests": true
         },
         "@schematics/angular:service": {
-          "skipTests": true
+          "skipTests": true,
+          "flat": true,
+          "type": "service"
         }
       },
       "root": "",

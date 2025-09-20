@@ -282,3 +282,5 @@ D:\code\angular\dotnet-base\TodoApi\bin\Debug\net8.0\clientApp\src\proxy.conf.js
 D:\code\angular\dotnet-base\TodoApi\bin\Debug\net8.0\clientApp\tsconfig.app.json
 D:\code\angular\dotnet-base\TodoApi\bin\Debug\net8.0\clientApp\tsconfig.json
 D:\code\angular\dotnet-base\TodoApi\bin\Debug\net8.0\clientApp\tsconfig.spec.json
+D:\code\angular\dotnet-base\TodoApi\bin\Debug\net8.0\clientApp\swagger.json
+D:\code\angular\dotnet-base\TodoApi\obj\Debug\net8.0\TodoApi.sourcelink.json

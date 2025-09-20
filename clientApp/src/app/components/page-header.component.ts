@@ -5,7 +5,7 @@ import { Component, input } from '@angular/core';
   imports: [],
   template: `
     <div class="page-header">
-      {{title()}}
+      <h1>{{title()}}</h1>
     </div>
   `,
   styles: ``

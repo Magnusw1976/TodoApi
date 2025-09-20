@@ -23,8 +23,8 @@ export class TodosService {
   });
   
   todo = resource<TodoItemDTO | undefined, number | undefined>({
-    params: this.selectedTodoId,
-    loader: async (id) => {
+    params: () => this.selectedTodoId(),
+    loader: async ({params: id, abortSignal}) => {
       if (id === undefined) {
         return undefined;
       }
@@ -50,6 +50,7 @@ export class TodosService {
       throw new Error('Failed to save new todo');
     }
     const json:TodoItemDTO = await response.json();
+    console.log('Returnerad todo vid skapande:', json);
     this.selectedTodoId.set(json.id);
     console.log('Saved new todo:', json);
     this.todos.reload();
@@ -57,7 +58,8 @@ export class TodosService {
     return json;
   }
 
-  async saveTodo(todo:TodoItemDTO): Promise<TodoItemDTO> {
+  async saveTodo(todo:TodoItemDTO): Promise<void> {
+    console.log('Saving todo:', todo);
     const response = await fetch(`/api/TodoItems/${todo.id}`, {
       method: 'PUT',
       headers: {
@@ -67,13 +69,10 @@ export class TodosService {
     });
     if (!response.ok) {
       throw new Error('Failed to save todo');
-    }
-    const json:TodoItemDTO = await response.json();
-    this.selectedTodoId.set(json.id);
-    console.log('Saved todo:', json);
+    }       
     this.todos.reload();
     this.todo.reload();
-    return json;
+    
   }
 
   async deleteTodo(id:number): Promise<void> {
