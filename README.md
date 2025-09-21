@@ -414,7 +414,7 @@ Let's make some adjustments to **angular.json** for this example. This is option
         }
       },
 ```
-Let's generate 3 components to handle our todo's.
+Let's generate our components and a service to handle our todo's.
 ```bash
 ng g c components/ui/page 
 ng g c pages/TodosPage
