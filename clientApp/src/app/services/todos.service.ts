@@ -38,7 +38,7 @@ export class TodosService {
     }
   });
 
-  async saveNewTodo(todo:TodoItemDTO): Promise<TodoItemDTO> {
+  async createTodo(todo:TodoItemDTO): Promise<TodoItemDTO> {
     const response = await fetch('/api/TodoItems', {
       method: 'POST',
       headers: {
@@ -47,10 +47,10 @@ export class TodosService {
       body: JSON.stringify(todo)
     });
     if (!response.ok) {
-      throw new Error('Failed to save new todo');
+      throw new Error('Failed to create new todo');
     }
     const json:TodoItemDTO = await response.json();
-    console.log('Returnerad todo vid skapande:', json);
+    
     this.selectedTodoId.set(json.id);
     console.log('Saved new todo:', json);
     this.todos.reload();
@@ -58,7 +58,7 @@ export class TodosService {
     return json;
   }
 
-  async saveTodo(todo:TodoItemDTO): Promise<void> {
+  async updateTodo(todo:TodoItemDTO): Promise<void> {
     console.log('Saving todo:', todo);
     const response = await fetch(`/api/TodoItems/${todo.id}`, {
       method: 'PUT',

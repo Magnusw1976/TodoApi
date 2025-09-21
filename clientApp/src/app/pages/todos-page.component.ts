@@ -8,14 +8,25 @@ import { TodoListComponent } from '../components/todo-list.component';
   selector: 'app-todos-page',
   imports: [PageComponent, TodoListComponent],
   template: `
-    <app-page title="Att göra sidan">
+    <app-page title="Your todo's page">
       <div>
-      <app-todo-list [showCreateForm]="true" [todoItems]="activeTodos()" listTitle="Aktiva todo's" />
+      <app-todo-list 
+        [showCreateForm]="true" 
+        [todoItems]="activeTodos()" 
+        listTitle="Active todo's" />
+
       <div style="margin: 20px 0;">
-        <button (click)="showCompletedList.set(!showCompletedList())">{{showCompletedList() ? 'Dölj slutförda' : 'Visa slutförda'}} ({{completedTodos().length}})</button>
+        <button 
+          (click)="showCompletedList.set(!showCompletedList())">
+            {{showCompletedList() ? 'Hide completed' : 'Show completed'}} 
+            ({{completedTodos().length}})
+        </button>
       </div>
+
       @if(showCompletedList()){
-        <app-todo-list [todoItems]="completedTodos()" listTitle="Slutförda todo's" />
+        <app-todo-list 
+          [todoItems]="completedTodos()" 
+          listTitle="Completed todo's" />
       }
       </div>
     </app-page>
