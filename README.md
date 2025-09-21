@@ -529,6 +529,7 @@ export class TodosService {
 
 ## Setup a route and create our page
 We're now gonna build the UI. It will look something like this:
+
 ![The UI](the-ui.png)
 
 The entry point of the application is index.html. It calls the `<app-root></app-root>` component in the body of the html page. This is implemented in the app.ts component.
