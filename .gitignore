@@ -2,3 +2,5 @@ obj
 bin
 wwwroot
 .vs
+clientApp/node_modules
+clientApp/.vscode
