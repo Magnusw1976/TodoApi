@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open --proxy-config src/proxy.conf.json",
+    "start-api": "cd ../.. && dotnet run --launch-profile https",
     "swagger-types": "curl -k https://localhost:7190/swagger/v1/swagger.json -o ./swagger.json && npx swagger-typescript-api generate -p ./swagger.json -o src/app/models --modular --templates typescript --no-client",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
