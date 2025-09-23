@@ -57,6 +57,10 @@ First of all, open det **appsettings.json** file of your dotnet core project. Ad
 ```
 Then you need to edit Program.cs to expose the ConnectionString to the application configuration and pass it to the AddDbContext. 
 In this case, we're using SQL-Server, so we pass the connection string in the `UseSqlServer` option.
+To use EntityFramework scaffolding, you need to install the following NuGet packages.
+**dotnet add package Microsoft.EntityFrameworkCore.Design** and 
+**dotnet add package Microsoft.EntityFrameworkCore.SqlServer**
+
 ```csharp
 builder.Services.AddControllers();
 var connectionString =
