@@ -36,8 +36,51 @@ dotnet run --launch-profile https
 It has a Weatherforecasts endponit per default. You can view your current API using the swagger:
 https://localhost:7190/swagger/index.html
 
+## Database-first approach
+If you already have a database, you can scaffold your model classes and DataContext based of the tables in the database.
+I'm showing an example from SQL-server here.
+
+First of all, open det **appsettings.json** file of your dotnet core project. Add a ConnectionStrings sections with your named connection string.
+```json
+{
+  "ConnectionStrings": {
+    "CONNECTIONSTRING_TODODB": "Integrated Security=true;Initial Catalog=todoDb;Server=localhost;Encrypt=false;"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*"  
+}
+```
+Then you need to edit Program.cs to expose the ConnectionString to the application configuration and pass it to the AddDbContext. 
+In this case, we're using SQL-Server, so we pass the connection string in the `UseSqlServer` option.
+```csharp
+builder.Services.AddControllers();
+var connectionString =
+    builder.Configuration.GetConnectionString("CONNECTIONSTRING_TODODB")
+        ?? throw new InvalidOperationException("Connection string"
+        + "'CONNECTIONSTRING_TODODB' not found.");
+
+builder.Services.AddDbContext<VimDbContext>(options =>
+        options.UseSqlServer(connectionString));
+```
+Now, add a new powershell file to the root of your dotnet core project
+```bash
+dotnet-ef dbcontext scaffold ""Integrated Security=true;Initial Catalog=todoDb;Server=localhost;Encrypt=false;" --context TodoContext `
+Microsoft.EntityFrameworkCore.SqlServer -o Models `
+--table dbo.ToDoItem  `
+--table dbo.Users  `
+--no-onconfiguring `
+--force
+```
+Lastly, execute your powershell file to generate the datacontext. Note that you will need to have access to the datebase you're using.
+
 ## Create the model and datacontext.
 Create a folder named Models and add two classes.
+
 
 ```csharp
 namespace TodoApi.Models;
