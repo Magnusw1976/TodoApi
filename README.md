@@ -69,7 +69,7 @@ builder.Services.AddDbContext<VimDbContext>(options =>
 ```
 Now, add a new powershell file to the root of your dotnet core project
 ```bash
-dotnet-ef dbcontext scaffold ""Integrated Security=true;Initial Catalog=todoDb;Server=localhost;Encrypt=false;" --context TodoContext `
+dotnet-ef dbcontext scaffold "Integrated Security=true;Initial Catalog=todoDb;Server=localhost;Encrypt=false;" --context TodoContext `
 Microsoft.EntityFrameworkCore.SqlServer -o Models `
 --table dbo.ToDoItem  `
 --table dbo.Users  `
