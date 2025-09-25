@@ -33,6 +33,35 @@ You can start the backend project with the following command.
 dotnet run --launch-profile https
 ```
 
+If you encounter that page cannot be loaded, ensure that Swashbuckle is installed
+```bash
+dotnet add package Swashbuckle.AspNetCore
+```
+
+and add builder.Services.AddSwaggerGen(); to Program.cs
+```csharp
+builder.Services.AddControllers();
+
+  // Register the Swagger generator, defining 1 or more Swagger documents
+    builder.Services.AddSwaggerGen(c =>
+    {
+        c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+    });
+
+// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.Services.AddOpenApi();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+```
+
 It has a Weatherforecasts endponit per default. You can view your current API using the swagger:
 https://localhost:7190/swagger/index.html
 
