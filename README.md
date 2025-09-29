@@ -67,6 +67,11 @@ https://localhost:7190/swagger/index.html
 
 ## Database-first approach
 If you already have a database, you can scaffold your model classes and DataContext based of the tables in the database.
+To do this, you need to install two .NET packages:
+```bash
+dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+```
 I'm showing an example from SQL-server here.
 
 First of all, open det **appsettings.json** file of your dotnet core project. Add a ConnectionStrings sections with your named connection string.
